@@ -1,0 +1,69 @@
+<script>
+    function computerPlay() {
+        let num = Math.floor(Math.random() * 3);
+        if (num === 0)
+            return "rock";
+        else if (num === 1)
+            return "paper";
+        else if (num === 2)
+            return "scissors";
+        else
+            return "error";
+    }
+
+    function capitalize(s) {
+        return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+
+    function playRound(person, computer) {
+        let validEntry =  (person === "rock" || person === "paper" || person === "scissors");
+        if (validEntry === false) {
+            console.log("Invalid entry. Try again")
+            return 0;
+        }
+        else if (person === computer) {
+            console.log("You both chose " + person + " - that's a tie, play again")
+            return 0;
+        }
+        else if ((person === "rock" && computer === "scissors") ||
+                (person === "scissors" && computer === "paper") ||
+                (person === "paper" && computer === "rock")) {
+                    console.log("You win! " + capitalize(person) + " beats " + capitalize(computer) + ".")
+                    return 1;
+                }
+        else {
+            console.log("You lose! " + capitalize(computer) + " beats " + capitalize(person) + ".");
+            return 2;
+        }
+    }
+
+    function game() {
+        let human = 0;
+        let comp = 0;
+        let winner = 0;
+        let gameCount = 0;
+        do {
+                let playerSelection = prompt("Rock, paper, or scissors?").toLowerCase();
+                let computerSelection = computerPlay();
+                winner = playRound(playerSelection, computerSelection);
+                if (winner === 1) {
+                    human++;
+                    gameCount++;
+                }
+                if (winner == 2) {
+                    comp++;
+                    gameCount++;
+                }
+        } while (gameCount < 5)
+        if (human > comp) {
+            console.log("You win! " + human + " to " + comp + ".");
+        }
+        else{
+            console.log("You lose! " + comp + " to " + human + ".");
+        }
+
+    }
+
+    game();
+
+</script>
